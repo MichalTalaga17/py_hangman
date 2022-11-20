@@ -30,7 +30,7 @@ SZUBIENICA = ['''
 
 
 =========''','''
-  
+
       |
       |
       |
@@ -94,18 +94,43 @@ SZUBIENICA = ['''
       |
 =========''']
 
-    
 
 
-def wisielec(szanse):
+
+def wisielec(bledy):
     os.system("cls")
-    print(SZUBIENICA[szanse])
-            
-def gra(wylosowane_haslo):
-    
-    dlugosc = wylosowane_haslo.__len__() 
-    wisielec(0)
+    print(SZUBIENICA[bledy])
+    print("Zgadnij literę: ")
+
+# def gra(wylosowane_haslo):
+#     dlugosc = wylosowane_haslo.__len__()
+#     bledy = 0
+
+def generuj_haslo():
+    wylosowane_haslo = rand.choice(hasla)
+    return wylosowane_haslo
+
+
+def main():
+    wylosowane_haslo = generuj_haslo()
+    dlugosc = wylosowane_haslo.__len__()
+    bledy = 0
+    while bledy < 10:
+        wisielec(bledy)
+        litera = input()
+        if litera in wylosowane_haslo:
+            print("Zgadłeś")
+        else:
+            bledy += 1
+            print("Nie zgadłeś")
+    print("Koniec gry")
 
 
 
 gra(rand.choice(hasla))
+
+
+#hangman in console
+# import os.py
+import os
+import random as rand
