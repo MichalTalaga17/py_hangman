@@ -14,6 +14,7 @@ hasla = [
     "TOYOTA"
 ]
 
+
 SZUBIENICA = ['''
 
 
@@ -29,7 +30,7 @@ SZUBIENICA = ['''
 
 
 =========''', '''
-
+  
       |
       |
       |
@@ -119,6 +120,7 @@ def main():
 
 
 def gra(wylosowane_haslo):
+
     dlugosc = wylosowane_haslo.__len__()
     wisielec(0)
     print("Witaj w grze wisielec")
@@ -126,7 +128,6 @@ def gra(wylosowane_haslo):
     print("Powodzenia")
     print()
     znaki = set()
-    znaki_dobre = set()
     szanse = 0
     while szanse < 10:
 
@@ -137,18 +138,12 @@ def gra(wylosowane_haslo):
             print("Ta litera juz byla")
         elif litera in wylosowane_haslo:
             print("Zgadles")
-            znaki_dobre.add(litera)
             znaki.add(litera)
-            if set(znaki_dobre) == set(wylosowane_haslo):
-                narysuj_haslo(wylosowane_haslo, znaki)
-                print("BRAWO! Wygrales!")
+            if znaki == set(wylosowane_haslo):
+                print("Brawo wygrales")
                 break
         else:
             print("Nie zgadles")
             szanse += 1
             wisielec(szanse)
             znaki.add(litera)
-    else:
-        print("PRZEGRALES! Haslo to:", wylosowane_haslo)
-
-main()
