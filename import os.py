@@ -1,7 +1,7 @@
 import os
 import random as rand
 
-hasla=[
+hasla = [
     "AUDI",
     "BMW",
     "MERCEDES",
@@ -14,7 +14,6 @@ hasla=[
     "TOYOTA"
 ]
 
-
 SZUBIENICA = ['''
 
 
@@ -22,28 +21,28 @@ SZUBIENICA = ['''
 
 
 
-''','''
+''', '''
 
 
 
 
 
 
-=========''','''
+=========''', '''
 
       |
       |
       |
       |
       |
-=========''','''
+=========''', '''
   +---+
       |
       |
       |
       |
       |
-=========''','''
+=========''', '''
   +---+
   |   |
       |
@@ -95,42 +94,61 @@ SZUBIENICA = ['''
 =========''']
 
 
-
-
-def wisielec(bledy):
+def wisielec(szanse):
     os.system("cls")
-    print(SZUBIENICA[bledy])
-    print("Zgadnij literę: ")
+    print(SZUBIENICA[szanse])
 
-# def gra(wylosowane_haslo):
-#     dlugosc = wylosowane_haslo.__len__()
-#     bledy = 0
 
-def generuj_haslo():
+def losowanie_hasla():
     wylosowane_haslo = rand.choice(hasla)
     return wylosowane_haslo
 
 
-def main():
-    wylosowane_haslo = generuj_haslo()
-    dlugosc = wylosowane_haslo.__len__()
-    bledy = 0
-    while bledy < 10:
-        wisielec(bledy)
-        litera = input()
-        if litera in wylosowane_haslo:
-            print("Zgadłeś")
+def narysuj_haslo(haslo, znaki):
+    for i in range(len(haslo)):
+        if haslo[i] in znaki:
+            print(haslo[i], end=" ")
         else:
-            bledy += 1
-            print("Nie zgadłeś")
-    print("Koniec gry")
+            print("_", end=" ")
+    print()
 
 
+def main():
+    wylosowane_haslo = losowanie_hasla()
+    gra(wylosowane_haslo)
 
-gra(rand.choice(hasla))
 
+def gra(wylosowane_haslo):
+    dlugosc = wylosowane_haslo.__len__()
+    wisielec(0)
+    print("Witaj w grze wisielec")
+    print("Twoje haslo ma", dlugosc, "liter")
+    print("Powodzenia")
+    print()
+    znaki = set()
+    znaki_dobre = set()
+    szanse = 0
+    while szanse < 10:
 
-#hangman in console
-# import os.py
-import os
-import random as rand
+        narysuj_haslo(wylosowane_haslo, znaki)
+        print("Podaj litere:")
+        litera = input().upper()
+        if litera in znaki:
+            print("Ta litera juz byla")
+        elif litera in wylosowane_haslo:
+            print("Zgadles")
+            znaki_dobre.add(litera)
+            znaki.add(litera)
+            if set(znaki_dobre) == set(wylosowane_haslo):
+                narysuj_haslo(wylosowane_haslo, znaki)
+                print("BRAWO! Wygrales!")
+                break
+        else:
+            print("Nie zgadles")
+            szanse += 1
+            wisielec(szanse)
+            znaki.add(litera)
+    else:
+        print("PRZEGRALES! Haslo to:", wylosowane_haslo)
+
+main()
